@@ -1,0 +1,7 @@
+*.class
+*.swap
+
+.idea/
+*.iml
+*.iws
+out/
