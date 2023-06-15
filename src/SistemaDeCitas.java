@@ -24,11 +24,13 @@ public class SistemaDeCitas {
     public void agregarPaciente(int id, String nombreCompleto) {
         Paciente paciente = new Paciente(id, nombreCompleto);
         pacientes.add(paciente);
+        guardarPacientes();//guardar los pacientes inmediatamente despues de agregar uno nuevo
     }
 
     public void agregarCita(int id, String fechaHora, String motivo, Doctor doctor, Paciente paciente) {
         Cita cita = new Cita(id, fechaHora, motivo, doctor, paciente);
         citas.add(cita);
+        guardarCitas();//guardar las citas inmediatamente despues de agregar una nueva
     }
 
     public Doctor buscarDoctorPorId(int id) {
@@ -59,7 +61,7 @@ public class SistemaDeCitas {
     }
 
     public void guardarDoctores() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("doctores.csv"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("db/doctores.csv"))) {
             for (Doctor doctor : doctores) {
                 writer.write(doctor.getId() + "," + doctor.getNombreCompleto() + "," + doctor.getEspecialidad());
                 writer.newLine();
@@ -70,7 +72,7 @@ public class SistemaDeCitas {
     }
 
     public void guardarPacientes() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("pacientes.csv"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("db/pacientes.csv"))) {
             for (Paciente paciente : pacientes) {
                 writer.write(paciente.getId() + "," + paciente.getNombreCompleto());
                 writer.newLine();
@@ -81,7 +83,7 @@ public class SistemaDeCitas {
     }
 
     public void guardarCitas() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("citas.csv"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("db/citas.csv"))) {
             for (Cita cita : citas) {
                 writer.write(cita.getId() + "," + cita.getFechaHora() + "," + cita.getMotivo() + "," +
                         cita.getDoctor().getId() + "," + cita.getPaciente().getId());
